@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -15,6 +16,15 @@ class AuthController extends Controller
     
     public function login()
     {
+        $validator = Validator::make(request()->all(), [
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
