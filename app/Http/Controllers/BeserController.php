@@ -33,10 +33,10 @@ class BeserController extends Controller
         );
     }
 
-    public function search(Request $request)
-    {
-        return Order::search($request->search)->get();
-    }
+    // public function search(Request $request)
+    // {
+    //     return Order::search($request->search)->get();
+    // }
 
     // public function filterTag($tag) 
     // {

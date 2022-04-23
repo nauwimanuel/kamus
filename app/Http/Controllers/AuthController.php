@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\AuthUserTrait;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -16,14 +17,14 @@ class AuthController extends Controller
     
     public function login()
     {
-        $validator = Validator::make(request()->all(), [
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-        ]);
+        // $validator = Validator::make(request()->all(), [
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required',
+        // ]);
 
-        if($validator->fails()) {
-            return response()->json($validator->messages(), 422);
-        }
+        // if($validator->fails()) {
+        //     return response()->json($validator->messages(), 422);
+        // }
 
         $credentials = request(['email', 'password']);
 
@@ -36,6 +37,8 @@ class AuthController extends Controller
     
     public function me()
     {
+        $user = $this->getAuthUser();
+
         return response()->json([
             'id' => auth()->user()['id'],
             'username' => auth()->user()['username'],
@@ -47,6 +50,8 @@ class AuthController extends Controller
     
     public function logout()
     {
+        // $user = $this->getAuthUser();
+
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
@@ -54,6 +59,8 @@ class AuthController extends Controller
     
     public function refresh()
     {   
+        $user = $this->getAuthUser();
+
         //Tymon\JWTAuth\Exceptions\JWTException
         //error no token send   
         return $this->respondWithToken(auth()->refresh(true, true));
