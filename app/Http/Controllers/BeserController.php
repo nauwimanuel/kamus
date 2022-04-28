@@ -33,17 +33,16 @@ class BeserController extends Controller
         );
     }
 
-    // public function search(Request $request)
-    // {
-    //     return Order::search($request->search)->get();
-    // }
+    public function search($lang, $word) 
+    {
+        if($lang != "indonesia" && $lang != "beser"){
+            return response()->json(['message' => 'Parameter ('.$lang.') Not Valid']);
+        }
 
-    // public function filterTag($tag) 
-    // {
-    //     return BeserResource::collection(
-    //         Beser::where('category', $tag)->paginate(25)
-    //     );
-    // }
+        return BeserResource::collection(
+            Beser::where($lang, $word)->get()
+        );
+    }
     
     public function store(Request $request)
     {

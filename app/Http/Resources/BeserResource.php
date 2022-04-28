@@ -18,7 +18,7 @@ class BeserResource extends JsonResource
             'id' => $this->id,
             'indonesia' => $this->indonesia,
             'beser' => $this->beser,
-            'user_id' => $this->user_id,
+            // 'user_id' => $this->user_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
