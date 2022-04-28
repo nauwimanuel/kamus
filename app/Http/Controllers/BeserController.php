@@ -36,7 +36,7 @@ class BeserController extends Controller
     public function search($lang, $word) 
     {
         if($lang != "indonesia" && $lang != "beser"){
-            return response()->json(['message' => 'Parameter ('.$lang.') Not Valid']);
+            return response()->json(['warning' => 'Parameter ('.$lang.') Not Valid. Recomended (indonesia or beser)'], 422);
         }
 
         return BeserResource::collection(
