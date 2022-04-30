@@ -28,8 +28,6 @@ class AuthController extends Controller
     
     public function me()
     {
-        $user = $this->getAuthUser();
-
         return response()->json([
             'id' => auth()->user()['id'],
             'username' => auth()->user()['username'],
@@ -48,8 +46,6 @@ class AuthController extends Controller
     
     public function refresh()
     {   
-        $user = $this->getAuthUser();
-
         //Tymon\JWTAuth\Exceptions\JWTException
         //error no token send   
         return $this->respondWithToken(auth()->refresh(true, true));

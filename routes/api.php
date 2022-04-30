@@ -15,6 +15,6 @@ Route::group(['middleware' => 'api'], function ($router) {
     
     Route::apiResource('beser', 'BeserController');
 
-    Route::get('beser/search/{lang}/{word}', 'BeserController@search');
+    Route::post('beser/search', 'BeserController@search');
 
 });
