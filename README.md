@@ -1,292 +1,344 @@
-# RESTful API Kamus Beser-Indonesia
+# API Kamus Beser-Indonesia
 
-RESTful API untuk Kamus Beser-Indonesia yang dibangun menggunakan framework <a href="https://laravel.com" target="_blank">Laravel v8.83.4</a> dengan <a href="https://jwt-auth.com" target="_blank">jwt-auth v1.0</a>.
+API untuk kamus bahasa daerah Beser-Indonesia yang dibangun menggunakan framework [Laravel v8.83.4](https://laravel.com) dengan [jwt-auth v1.0](https://jwt-auth.com).
 
 > Beser merupakan salah satu bahasa daerah yang berasal papua, bahasa Beser dituturkan oleh masyarakat adat Betew di Kampung Saporkren, Distrik Waigeo Selatan, Kabupaten Raja Ampat, Provinsi Papua Barat dengan jumlah penutur sekitar 120 jiwa.
 
 ## Dokumentasi
-**Base Url** : 
-```
-https://beser.herokuapp.com/api
-``` 
 **Endpoint** : 
-| Method | URI | KETERANGAN |
-| ---- | ---- | ---- |
-| POST | api/auth/login |  |
-| POST | api/auth/logout |  |
-| POST | api/auth/me |  |
-| POST | api/auth/refresh |  |
-| POST | api/auth/register |  |
-| GET  | api/beser | Menampilkan Data Kamus |
-| POST | api/beser | Menambah Data Kamus |
-| POST | api/beser/search | Mencari Kata Pada kamus |
-| GET | api/beser/:id | Mengambil Data Kamus Berdasarkan Id |
-| PUT | api/beser/:id | Menguah Data Kamus |
-| DELETE | api/beser/:id | Menghapus Data Kamus |
+| Method | URI                            | KETERANGAN                          |
+| ------ | ------------------------------ | ----------------------------------- |
+| POST   | [api/auth/login](#login)       | Login User                          |
+| POST   | [api/auth/logout](#logout)     | Logout User                         |
+| POST   | [api/auth/me](#me)             | Data Profil User                    |
+| POST   | [api/auth/refresh](#refresh)   | Refresh Token                       |
+| POST   | [api/auth/register](#register) | Register User                       |
+| GET    | [api/beser](#get)              | Menampilkan Data Kamus              |
+| POST   | [api/beser](#post)             | Menambah Data Kamus                 |
+| POST   | [api/beser/search](#search)    | Mencari Kata Pada kamus             |
+| GET    | [api/beser/:id](#byid)         | Mengambil Data Kamus Berdasarkan Id |
+| PUT    | [api/beser/:id](#put)          | Mengubah Data Kamus                 |
+| DELETE | [api/beser/:id](#delete)       | Menghapus Data Kamus                |
 
-### Pengunaan
-- Contoh *Request*
-  ```
-    GET https://beser.herokuapp.com/api/beser/
-  ```
-- Contoh *Response*
-  ```json
-  {
-    "data": [
-        {
-            "id": 1,
-            "indonesia": "anjing",
-            "beser": "nofan",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 2,
-            "indonesia": "air",
-            "beser": "waer",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 3,
-            "indonesia": "agas",
-            "beser": "raprap",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 4,
-            "indonesia": "adegan",
-            "beser": "roifuer",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 5,
-            "indonesia": "ada",
-            "beser": "naisi",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 6,
-            "indonesia": "anak",
-            "beser": "mkun",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 7,
-            "indonesia": "ayah",
-            "beser": "omsinan",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 8,
-            "indonesia": "ajaran",
-            "beser": "farkarkor",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 9,
-            "indonesia": "alis",
-            "beser": "mkawur",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 10,
-            "indonesia": "angin",
-            "beser": "wayem",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 11,
-            "indonesia": "asap",
-            "beser": "ipai",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 12,
-            "indonesia": "awas",
-            "beser": "jaka",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 13,
-            "indonesia": "aku",
-            "beser": "aya",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 14,
-            "indonesia": "ambilkan",
-            "beser": "wun ita",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 15,
-            "indonesia": "apakah",
-            "beser": "inema yo",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 16,
-            "indonesia": "babi",
-            "beser": "beyen",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 17,
-            "indonesia": "bagus",
-            "beser": "iwye",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 18,
-            "indonesia": "baju",
-            "beser": "tantun",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 19,
-            "indonesia": "bakar",
-            "beser": "tabrai",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 20,
-            "indonesia": "bangun",
-            "beser": "wakwoek",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 21,
-            "indonesia": "bantal",
-            "beser": "afyak",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 22,
-            "indonesia": "bapak",
-            "beser": "omsinan",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 23,
-            "indonesia": "bau",
-            "beser": "ifnarem",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 24,
-            "indonesia": "begini",
-            "beser": "wetne",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        },
-        {
-            "id": 25,
-            "indonesia": "belakang",
-            "beser": "worpur",
-            "created_at": "2022-04-28T23:44:12.000000Z",
-            "updated_at": "2022-04-28T23:44:12.000000Z"
-        }
-    ],
-    "links": {
-        "first": "http://127.0.0.1:8000/api/beser?page=1",
-        "last": "http://127.0.0.1:8000/api/beser?page=10",
-        "prev": null,
-        "next": "http://127.0.0.1:8000/api/beser?page=2"
-    },
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 10,
-        "links": [
+**Base Url** :
+```
+https://beser.herokuapp.com/
+```
+
+### Login User <p id="login">
+- *Request*
+    ```
+    api/auth/login
+    ```
+
+    Body Form Data
+    | key      | value           |
+    | -------- | --------------- |
+    | email    | admin@kamus.com |
+    | password | 12345678        |
+
+- *Response*
+    ```json
+    {
+        "token_type": "bearer",
+        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY1MTE4OTUxMiwiZXhwIjoxNjUxMTkzMTEyLCJuYmYiOjE2NTExODk1MTIsImp0aSI6IjF2dWlSQUg2Z2o2RmFHMGQiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.qbIgUAv9H5ID4RXam40EKcZacnCsI1L7p55YUDc-gCM",
+        "expires_in": 216000
+    }
+    ```
+---
+### Logout User <p id="logout">
+- *Request*
+    ```
+    api/auth/logout
+    ```
+
+    Authorization Bearer Token
+    | Token     |
+    | --------- |
+    | < token > |
+
+- *Response*
+    ```json
+    {
+        "message": "Successfully logged out"
+    }
+    ```
+---
+### Data Profil User <p id="me">
+- *Request*
+    ```
+    api/auth/me
+    ```
+
+    Authorization Bearer Token
+    | Token     |
+    | --------- |
+    | < token > |
+
+- *Response*
+    ```json
+    {
+        "id": 1,
+        "username": "AdminKamus",
+        "email": "admin@kamus.com",
+        "created_at": "2022-04-28T23:44:12.000000Z",
+        "updated_at": "2022-04-28T23:44:12.000000Z"
+    }
+    ```
+---
+### Refresh Token <p id="refresh">
+- *Request*
+    ```
+    api/auth/refresh
+    ```
+
+    Authorization Bearer Token
+    | Token     |
+    | --------- |
+    | < token > |
+
+- *Response*
+    ```json
+    {
+        "token_type": "bearer",
+        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNjUxMTg5NjQyLCJleHAiOjE2NTExOTM0NDcsIm5iZiI6MTY1MTE4OTg0NywianRpIjoib00zcUk1Q0RjNkFUbnJ2bSIsInN1YiI6MX0.KytQ7wmXoDlWtk_8XbIbhSO60FiC7DnjPbxJSz6mbIU",
+        "expires_in": 216000
+    }
+    ```
+---
+### Register User <p id="register">
+- *Request*
+    ```
+    api/auth/register
+    ```
+
+    Body Form Data
+    | key      | value          |
+    | -------- | -------------- |
+    | username | manu           |
+    | email    | manu@gmail.com |
+    | password | manu123        |
+
+- *Response*
+    ```json
+    {
+        "message": "Successfully register"
+    }
+    ```
+---
+### Menampilkan Data Kamus <p id="get">
+- *Request*
+    ```
+    api/beser/
+    ```
+
+- *Response*
+    ```json
+    {
+        "data": [
             {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
+                "id": 1,
+                "indonesia": "anjing",
+                "beser": "nofan",
+                "created_at": "2022-04-28T23:44:12.000000Z",
+                "updated_at": "2022-04-28T23:44:12.000000Z"
             },
+            {...},
             {
-                "url": "http://127.0.0.1:8000/api/beser?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": "http://127.0.0.1:8000/api/beser?page=2",
-                "label": "2",
-                "active": false
-            },
-            {
-                "url": "http://127.0.0.1:8000/api/beser?page=3",
-                "label": "3",
-                "active": false
-            },
-            {
-                "url": "http://127.0.0.1:8000/api/beser?page=4",
-                "label": "4",
-                "active": false
-            },
-            {
-                "url": "http://127.0.0.1:8000/api/beser?page=5",
-                "label": "5",
-                "active": false
-            },
-            {
-                "url": "http://127.0.0.1:8000/api/beser?page=6",
-                "label": "6",
-                "active": false
-            },
-            {
-                "url": "http://127.0.0.1:8000/api/beser?page=7",
-                "label": "7",
-                "active": false
-            },
-            {
-                "url": "http://127.0.0.1:8000/api/beser?page=8",
-                "label": "8",
-                "active": false
-            },
-            {
-                "url": "http://127.0.0.1:8000/api/beser?page=9",
-                "label": "9",
-                "active": false
-            },
-            {
-                "url": "http://127.0.0.1:8000/api/beser?page=10",
-                "label": "10",
-                "active": false
-            },
-            {
-                "url": "http://127.0.0.1:8000/api/beser?page=2",
-                "label": "Next &raquo;",
-                "active": false
+                "id": 25,
+                "indonesia": "belakang",
+                "beser": "worpur",
+                "created_at": "2022-04-28T23:44:12.000000Z",
+                "updated_at": "2022-04-28T23:44:12.000000Z"
             }
         ],
-        "path": "http://127.0.0.1:8000/api/beser",
-        "per_page": 25,
-        "to": 25,
-        "total": 247
+        "links": {
+            "first": "http://127.0.0.1:8000/api/beser?page=1",
+            "last": "http://127.0.0.1:8000/api/beser?page=10",
+            "prev": null,
+            "next": "http://127.0.0.1:8000/api/beser?page=2"
+        },
+        "meta": {
+            "current_page": 1,
+            "from": 1,
+            "last_page": 10,
+            "links": [
+                {
+                    "url": null,
+                    "label": "&laquo; Previous",
+                    "active": false
+                },
+                {
+                    "url": "http://127.0.0.1:8000/api/beser?page=1",
+                    "label": "1",
+                    "active": true
+                },
+                {
+                    "url": "http://127.0.0.1:8000/api/beser?page=2",
+                    "label": "2",
+                    "active": false
+                },
+                {
+                    "url": "http://127.0.0.1:8000/api/beser?page=3",
+                    "label": "3",
+                    "active": false
+                },
+                {
+                    "url": "http://127.0.0.1:8000/api/beser?page=4",
+                    "label": "4",
+                    "active": false
+                },
+                {
+                    "url": "http://127.0.0.1:8000/api/beser?page=5",
+                    "label": "5",
+                    "active": false
+                },
+                {
+                    "url": "http://127.0.0.1:8000/api/beser?page=6",
+                    "label": "6",
+                    "active": false
+                },
+                {
+                    "url": "http://127.0.0.1:8000/api/beser?page=7",
+                    "label": "7",
+                    "active": false
+                },
+                {
+                    "url": "http://127.0.0.1:8000/api/beser?page=8",
+                    "label": "8",
+                    "active": false
+                },
+                {
+                    "url": "http://127.0.0.1:8000/api/beser?page=9",
+                    "label": "9",
+                    "active": false
+                },
+                {
+                    "url": "http://127.0.0.1:8000/api/beser?page=10",
+                    "label": "10",
+                    "active": false
+                },
+                {
+                    "url": "http://127.0.0.1:8000/api/beser?page=2",
+                    "label": "Next &raquo;",
+                    "active": false
+                }
+            ],
+            "path": "http://127.0.0.1:8000/api/beser",
+            "per_page": 25,
+            "to": 25,
+            "total": 247
+        }
     }
-  }
-  ```
+    ```
 ---
-Oleh @nauwimanuel
+### Menambah Data Kamus <p id="post">
+- *Request*
+    ```
+    api/beser
+    ```
+
+    Authorization Bearer Token
+    | Token     |
+    | --------- |
+    | < token > |
+
+    Body Form Data
+    | key       | value        |
+    | --------- | ------------ |
+    | indonesia | Terima Kasih |
+    | beser     | Injo         |
+
+- *Response*
+    ```json
+    {
+        "message": "Successfully posted"
+    }
+    ```
+---
+### Mencari Kata Pada kamus <p id="search">
+- *Request*
+    ```
+    api/beser/search
+    ```
+    Body Form Data
+    | Key      | Value | Keterangan                                                       |
+    | -------- | ----- | ---------------------------------------------------------------- |
+    | language | beser | Parameter ini hanya memiliki 2 nilai yaitu: indonesia atau beser |
+    | word     | injo  | Parameter  dari  kata yang akan dicari                           |
+
+- *Response*
+    ```json
+    {
+        "data": [
+            {
+                "id": 247,
+                "indonesia": "Terima Kasih",
+                "beser": "Injo",
+                "created_at": "2022-04-28T23:56:12.000000Z",
+                "updated_at": "2022-04-28T23:56:12.000000Z"
+            }
+        ]
+    }
+    ```
+---
+### Mengambil Data Kamus Berdasarkan Id <p id="byid">
+- *Request*
+    ```
+    api/beser/1
+    ```
+
+- *Response*
+    ```json
+    {
+        "id": 1,
+        "indonesia": "anjing",
+        "beser": "nofan",
+        "created_at": "2022-04-28T23:44:12.000000Z",
+        "updated_at": "2022-04-28T23:44:12.000000Z"
+    }
+    ```
+---
+### Mengubah Data Kamus <p id="put">
+- *Request*
+    ```
+    api/beser/247
+    ```
+
+    Authorization Bearer Token
+    | Token     |
+    | --------- |
+    | < token > |
+
+    Body Form Data
+    | key       | value   |
+    | --------- | ------- |
+    | indonesia | Makasih |
+    | beser     | Injo    |
+
+- *Response*
+    ```json
+    {
+        "message": "Successfully updated"
+    }
+    ```
+---
+### Menghapus Data Kamus <p id="delete">
+- *Request*
+    ```
+    api/beser/247
+    ```
+
+    Authorization Bearer Token
+    | Token     |
+    | --------- |
+    | < token > |
+
+- *Response*
+    ```json
+    {
+        "message": "Successfully deleted"
+    }
+    ```
+---
+Oleh [Imanuel Nauw]()
