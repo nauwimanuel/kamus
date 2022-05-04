@@ -10,9 +10,19 @@ RESTful API untuk Kamus Beser-Indonesia yang dibangun menggunakan framework <a h
 https://beser.herokuapp.com/api
 ``` 
 **Endpoint** : 
-```
-/beser
-```
+| Method | URI | KETERANGAN |
+| ---- | ---- | ---- |
+| POST | api/auth/login |  |
+| POST | api/auth/logout |  |
+| POST | api/auth/me |  |
+| POST | api/auth/refresh |  |
+| POST | api/auth/register |  |
+| GET  | api/beser | Menampilkan Data Kamus |
+| POST | api/beser | Menambah Data Kamus |
+| POST | api/beser/search | Mencari Kata Pada kamus |
+| GET | api/beser/:id | Mengambil Data Kamus Berdasarkan Id |
+| PUT | api/beser/:id | Menguah Data Kamus |
+| DELETE | api/beser/:id | Menghapus Data Kamus |
 
 ### Pengunaan
 - Contoh *Request*
@@ -276,7 +286,7 @@ https://beser.herokuapp.com/api
         "to": 25,
         "total": 247
     }
- }
+  }
   ```
 ---
-Di bangun oleh @nauwimanuel
+Oleh @nauwimanuel
